@@ -20,5 +20,11 @@ public partial class MainPage : ContentPage
 
 		SemanticScreenReader.Announce(CounterBtn.Text);
 	}
+
+	private async void OnAddEntryClicked(object sender, EventArgs e)
+	{
+		await Shell.Current.GoToAsync("EntryPage");
+		// await Navigation.PushAsync(new EntryPage());
+	}
 }
 

@@ -1,6 +1,3 @@
-using System;
-using System.Text;
-
 namespace EmotionJournal.Models
 {
     public static class Icons
@@ -33,6 +30,6 @@ namespace EmotionJournal.Models
 
         public static string MicIcon = "\ue029";
 
-        public static string MindIcon = "\uf6e0";
+        public static string AddReactionIcon = "\ue1d3";
     }
 }

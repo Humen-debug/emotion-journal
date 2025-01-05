@@ -5,28 +5,18 @@ using Microsoft.Maui.Platform;
 using UIKit;
 #endif
 
-using System.Runtime.InteropServices;
-using System.Security.Cryptography;
-
-namespace EmotionJournal;
+namespace EmotionJournal.Views;
 
 public partial class EntryPage : ContentPage
 {
-
-	private string? title;
-	private string? content;
-	private DateTime date;
-
-
-	public EntryPage()
+	public EntryPage(ViewModels.LogViewModel log)
 	{
+		BindingContext = log;
 		InitializeComponent();
-		date = new DateTime();
-#if IOS 
+#if IOS
 		Initialize();
 #endif
 	}
-
 #if IOS
 	double paddingBottom = 0;
 	bool showSoftKeyboard;
@@ -36,19 +26,21 @@ public partial class EntryPage : ContentPage
 
 	private void Initialize()
 	{
-		this.Padding = new (Padding.Left, Padding.Top, Padding.Right, paddingBottom);
+		this.Padding = new(Padding.Left, Padding.Top, Padding.Right, paddingBottom);
 		RegisterForKeyboardNotifications();
 	}
 
 	// dispose
-	~EntryPage(){
+	~EntryPage()
+	{
 		UnregisterForKeyboardNotifications();
 	}
 
 	// on this iOS platform, adjust the window size when the soft keyboard pops up
-	void OnKeyboardShow(object sender, UIKeyboardEventArgs e) 
+	void OnKeyboardShow(object sender, UIKeyboardEventArgs e)
 	{
-		if(showSoftKeyboard) {
+		if (showSoftKeyboard)
+		{
 			return;
 		}
 
@@ -60,9 +52,10 @@ public partial class EntryPage : ContentPage
 		this.Padding = new Thickness(Padding.Left, Padding.Top, Padding.Right, keyboardSize.Height);
 	}
 
-	void OnKeyboardHide(object sender, UIKeyboardEventArgs e) 
+	void OnKeyboardHide(object sender, UIKeyboardEventArgs e)
 	{
-		if(!showSoftKeyboard) {
+		if (!showSoftKeyboard)
+		{
 			return;
 		}
 
@@ -85,7 +78,7 @@ public partial class EntryPage : ContentPage
 			_keyboardShowObserver = null;
 		}
 
-		if (_keyboardHideObserver is not null) 
+		if (_keyboardHideObserver is not null)
 		{
 			_keyboardHideObserver.Dispose();
 			_keyboardHideObserver = null;
@@ -95,12 +88,12 @@ public partial class EntryPage : ContentPage
 
 	public void OnTitleChanged(object sender, TextChangedEventArgs e)
 	{
-		title = e.NewTextValue;
+		// title = e.NewTextValue;
 	}
 
 	public void OnContentChanged(object sender, TextChangedEventArgs e)
 	{
-		content = e.NewTextValue;
+		// content = e.NewTextValue;
 	}
 
 	public void OnContentCompleted(object sender, EventArgs e)
@@ -108,40 +101,40 @@ public partial class EntryPage : ContentPage
 		string? text = ((Editor)sender)?.Text;
 	}
 
-/*
-Another solution(?) for page resizing for iOS keyboard
-https://stackoverflow.com/questions/75304124/net-maui-entry-hidden-behind-keyboard-on-ios
+	/*
+	Another solution(?) for page resizing for iOS keyboard
+	https://stackoverflow.com/questions/75304124/net-maui-entry-hidden-behind-keyboard-on-ios
 
-NSValue result = (NSValue)args.Notification.UserInfo.ObjectForKey(new NSString(UIKeyboard.FrameEndUserInfoKey));
+	NSValue result = (NSValue)args.Notification.UserInfo.ObjectForKey(new NSString(UIKeyboard.FrameEndUserInfoKey));
 
-CGSize keyboardSize = result.RectangleFValue.Size;
+	CGSize keyboardSize = result.RectangleFValue.Size;
 
-private void Entry_Focused(object sender, FocusEventArgs e)
-{
-    if (DeviceInfo.Current.Platform == DevicePlatform.iOS)
-    {
-       NFloat bottom;
-        try
-        {
-             UIWindow window = UIApplication.SharedApplication.Delegate.GetWindow();
-                bottom = window.SafeAreaInsets.Bottom;
-        }
-        catch
-        {
-             bottom = 0;
-        }
-        var heightChange = (keyboardSize.Height - bottom);
-        layout.TranslateTo(0, originalTranslationY.Value - heightChange, 50);
-    }
-}
+	private void Entry_Focused(object sender, FocusEventArgs e)
+	{
+		if (DeviceInfo.Current.Platform == DevicePlatform.iOS)
+		{
+		   NFloat bottom;
+			try
+			{
+				 UIWindow window = UIApplication.SharedApplication.Delegate.GetWindow();
+					bottom = window.SafeAreaInsets.Bottom;
+			}
+			catch
+			{
+				 bottom = 0;
+			}
+			var heightChange = (keyboardSize.Height - bottom);
+			layout.TranslateTo(0, originalTranslationY.Value - heightChange, 50);
+		}
+	}
 
-private void Entry_Unfocused(object sender, FocusEventArgs e)
-{
-    if (DeviceInfo.Current.Platform == DevicePlatform.iOS)
-    {
-        layout.TranslateTo(0, 0, 50);
-    }
-}
+	private void Entry_Unfocused(object sender, FocusEventArgs e)
+	{
+		if (DeviceInfo.Current.Platform == DevicePlatform.iOS)
+		{
+			layout.TranslateTo(0, 0, 50);
+		}
+	}
 
-*/
+	*/
 }

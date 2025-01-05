@@ -4,11 +4,16 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:EmotionJournal"
+    xmlns:view="clr-namespace:EmotionJournal.Views"
+    Shell.FlyoutBehavior="Disabled"
     Title="EmotionJournal">
 
     <ShellContent
         Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
-
+        ContentTemplate="{DataTemplate view:EntriesListPage}"
+        Route="EntriesListPage" />
+    <ShellContent
+        Title="Entry"
+        ContentTemplate="{DataTemplate view:EntryPage}"
+        Route="EntryPage" />
 </Shell>

@@ -1,22 +1,46 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:EmotionJournal.ViewModels"
              xmlns:models="clr-namespace:EmotionJournal.Models"
-             x:Class="EmotionJournal.EntryPage">
+             x:Class="EmotionJournal.Views.EntryPage"
+             x:DataType="vm:LogViewModel">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style TargetType="Button"
-                    x:Key="TabBtn">
+                   x:Key="TabBtn">
                 <Setter Property="BackgroundColor"
                         Value="Transparent"/>
                 <Setter Property="FontSize"
                         Value="30"/>
+                <Setter Property="FontFamily"
+                        Value="MaterialIconsRegular"/>
                 <Setter Property="CornerRadius"
                         Value="4"/>
-                <Setter Property="VerticalOptions" Value="Center"/>
-                
-                <Setter Property="MaximumHeightRequest" Value="40"/>
-                <Setter Property="Padding" Value="0"/>
+                <Setter Property="VerticalOptions"
+                        Value="Center"/>
+                <Setter Property="MaximumHeightRequest"
+                        Value="40"/>
+                <Setter Property="Padding"
+                        Value="0"/>
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor"
+                                            Value="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource SecondaryDark}}"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="PointedOver">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor"
+                                            Value="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource SecondaryDark}}"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -28,15 +52,19 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Label
-                Text="{Binding Date}"
-                />
+            <HorizontalStackLayout>
+                <Label Text="{Binding CreatedDate, StringFormat='{0:dd}'}"/>
+                <VerticalStackLayout>
+                    <Label Text="{Binding CreatedDate, StringFormat='{0:EEEE}'}"/>
+                    <Label Text="{Binding CreatedDate, StringFormat='{0:MMM, y}'}"/>
+                </VerticalStackLayout>
+            </HorizontalStackLayout>
+
             <Button
                 Grid.Column="2"
                 x:Name="SaveBtn"
                 Text="Done"
-                Style="{StaticResource TextButton}"
-                />
+                Style="{StaticResource TextButton}"/>
         </Grid>
     </Shell.TitleView>
 
@@ -55,11 +83,11 @@
                 </Grid.RowDefinitions>
                 <Entry
                     x:Name="Title"
-                    TextChanged="OnTitleChanged"
+                    Text="{Binding Title}"
                     Placeholder="Title"/>
                 <Editor
                     x:Name="Content"
-                    TextChanged="OnContentChanged"
+                    Text="{Binding Content}"
                     Placeholder="Start Writing..."
                     AutoSize="TextChanges"
                     Grid.Row="1"/>
@@ -78,34 +106,27 @@
             <Button
                 x:Name="MarkdownBtn"
                 Text="{x:Static models:Icons.FormatIcon}"
-                Style="{StaticResource TabBtn}"
-                />
+                Style="{StaticResource TabBtn}"/>
             <Button
                 x:Name="ImageBtn"
                 Text="{x:Static models:Icons.ImageIcon}"
-                Style="{StaticResource TabBtn}"
-                />
+                Style="{StaticResource TabBtn}"/>
             <Button
                 x:Name="CameraBtn"
                 Text="{x:Static models:Icons.CameraIcon}"
-                Style="{StaticResource TabBtn}"
-                />
+                Style="{StaticResource TabBtn}"/>
             <Button
                 x:Name="LocationBtn"
                 Text="{x:Static models:Icons.NearMeIcon}"
-                Style="{StaticResource TabBtn}"
-                />
+                Style="{StaticResource TabBtn}"/>
             <Button
                 x:Name="RecordBtn"
                 Text="{x:Static models:Icons.MicIcon}"
-                Style="{StaticResource TabBtn}"
-                
-                />
+                Style="{StaticResource TabBtn}"/>
             <Button
                 x:Name="FeelingBtn"
-                Text="{x:Static models:Icons.MindIcon}"
-                Style="{StaticResource TabBtn}"
-                />
+                Text="{x:Static models:Icons.AddReactionIcon}"
+                Style="{StaticResource TabBtn}"/>
         </FlexLayout>
     </Grid>
 </ContentPage>

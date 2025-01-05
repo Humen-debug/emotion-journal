@@ -1,4 +1,6 @@
-﻿namespace EmotionJournal;
+﻿using EmotionJournal.Views;
+
+namespace EmotionJournal;
 
 public partial class AppShell : Shell
 {
@@ -6,6 +8,6 @@ public partial class AppShell : Shell
 	{
 		InitializeComponent();
 
-		Routing.RegisterRoute("EntryPage", typeof(EntryPage));
+		// Routing.RegisterRoute("EntryPage", typeof(EntryPage));
 	}
 }

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:EmotionJournal.Models"
+             x:Class="EmotionJournal.Components.EntryToolBar">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Button">
+                <Setter Property="BackgroundColor"
+                        Value="Transparent"/>
+                <Setter Property="FontSize"
+                        Value="30"/>
+                <Setter Property="FontFamily"
+                        Value="MaterialIconsRegular"/>
+                <Setter Property="CornerRadius"
+                        Value="4"/>
+                <Setter Property="VerticalOptions"
+                        Value="Center"/>
+                <Setter Property="MaximumHeightRequest"
+                        Value="40"/>
+                <Setter Property="Padding"
+                        Value="0"/>
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray100},Dark={StaticResource GrayDark100}}"/>
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor"
+                                            Value="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource SecondaryDark}}"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="PointedOver">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor"
+                                            Value="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource SecondaryDark}}"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <FlexLayout
+        BackgroundColor="{AppThemeBinding Light={StaticResource Tertiary}, Dark={StaticResource TertiaryDark}}"
+        HeightRequest="40"
+        Padding="12,0"
+        HorizontalOptions="Fill"
+        JustifyContent="SpaceEvenly"
+        Shrink="0">
+        <Button
+            x:Name="MarkdownBtn"
+            Text="{x:Static models:Icons.FormatIcon}"
+            Clicked="OnMarkdownBtnClicked"/>
+        <Button
+            x:Name="ImageBtn"
+            Text="{x:Static models:Icons.ImageIcon}"
+            Clicked="OnImageBtnClicked"/>
+        <Button
+            x:Name="CameraBtn"
+            Text="{x:Static models:Icons.CameraIcon}"
+            Clicked="OnCameraBtnClicked"/>
+        <Button
+            x:Name="LocationBtn"
+            Text="{x:Static models:Icons.NearMeIcon}"
+            Clicked="OnLocationBtnClicked"/>
+        <Button
+            x:Name="RecordBtn"
+            Text="{x:Static models:Icons.MicIcon}"
+            Clicked="OnRecordBtnClicked"/>
+        <Button
+            x:Name="FeelingBtn"
+            Text="{x:Static models:Icons.AddReactionIcon}"
+            Clicked="OnFeelingBtnClicked"/>
+    </FlexLayout>
+
+</ContentView>

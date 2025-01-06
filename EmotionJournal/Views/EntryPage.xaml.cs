@@ -9,6 +9,8 @@ namespace EmotionJournal.Views;
 
 public partial class EntryPage : ContentPage
 {
+	public bool showToolBar;
+
 	public EntryPage(ViewModels.LogViewModel log)
 	{
 		BindingContext = log;
@@ -21,7 +23,7 @@ public partial class EntryPage : ContentPage
 	double paddingBottom = 0;
 	bool showSoftKeyboard;
 	NSObject? _keyboardShowObserver;
-	NSObject _keyboardHideObserver;
+	NSObject? _keyboardHideObserver;
 
 
 	private void Initialize()
@@ -101,40 +103,4 @@ public partial class EntryPage : ContentPage
 		string? text = ((Editor)sender)?.Text;
 	}
 
-	/*
-	Another solution(?) for page resizing for iOS keyboard
-	https://stackoverflow.com/questions/75304124/net-maui-entry-hidden-behind-keyboard-on-ios
-
-	NSValue result = (NSValue)args.Notification.UserInfo.ObjectForKey(new NSString(UIKeyboard.FrameEndUserInfoKey));
-
-	CGSize keyboardSize = result.RectangleFValue.Size;
-
-	private void Entry_Focused(object sender, FocusEventArgs e)
-	{
-		if (DeviceInfo.Current.Platform == DevicePlatform.iOS)
-		{
-		   NFloat bottom;
-			try
-			{
-				 UIWindow window = UIApplication.SharedApplication.Delegate.GetWindow();
-					bottom = window.SafeAreaInsets.Bottom;
-			}
-			catch
-			{
-				 bottom = 0;
-			}
-			var heightChange = (keyboardSize.Height - bottom);
-			layout.TranslateTo(0, originalTranslationY.Value - heightChange, 50);
-		}
-	}
-
-	private void Entry_Unfocused(object sender, FocusEventArgs e)
-	{
-		if (DeviceInfo.Current.Platform == DevicePlatform.iOS)
-		{
-			layout.TranslateTo(0, 0, 50);
-		}
-	}
-
-	*/
 }
